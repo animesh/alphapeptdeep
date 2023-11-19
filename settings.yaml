@@ -1,0 +1,201 @@
+model:
+  frag_types:
+  - b
+  - y
+  - b_modloss
+  - y_modloss
+  max_frag_charge: 2
+PEPTDEEP_HOME: /home/ash022/peptdeep
+local_model_zip_name: pretrained_models.zip
+model_url: https://github.com/MannLabs/alphapeptdeep/releases/download/pre-trained-models/pretrained_models.zip
+task_workflow:
+- library
+task_choices:
+- train
+- library
+thread_num: 16
+torch_device:
+  device_type: gpu
+  device_type_choices:
+  - get_available
+  - gpu
+  - mps
+  - cpu
+  device_ids: []
+log_level: info
+log_level_choices:
+- debug
+- info
+- warning
+- error
+- critical
+common:
+  modloss_importance_level: 1.0
+  user_defined_modifications: {}
+peak_matching:
+  ms2_ppm: true
+  ms2_tol_value: 20.0
+  ms1_ppm: true
+  ms1_tol_value: 20.0
+model_mgr:
+  default_nce: 30.0
+  default_instrument: Lumos
+  mask_modloss: true
+  model_type: generic
+  model_choices:
+  - generic
+  - phos
+  - hla
+  - digly
+  external_ms2_model: ''
+  external_rt_model: ''
+  external_ccs_model: ''
+  instrument_group:
+    ThermoTOF: ThermoTOF
+    Astral: ThermoTOF
+    Lumos: Lumos
+    QE: QE
+    timsTOF: timsTOF
+    SciexTOF: SciexTOF
+    Fusion: Lumos
+    Eclipse: Lumos
+    Velos: Lumos
+    Elite: Lumos
+    OrbitrapTribrid: Lumos
+    ThermoTribrid: Lumos
+    QE+: QE
+    QEHF: QE
+    QEHFX: QE
+    Exploris: QE
+    Exploris480: QE
+    THERMOTOF: ThermoTOF
+    ASTRAL: ThermoTOF
+    LUMOS: Lumos
+    TIMSTOF: timsTOF
+    SCIEXTOF: SciexTOF
+    FUSION: Lumos
+    ECLIPSE: Lumos
+    VELOS: Lumos
+    ELITE: Lumos
+    ORBITRAPTRIBRID: Lumos
+    THERMOTRIBRID: Lumos
+    EXPLORIS: QE
+    EXPLORIS480: QE
+  predict:
+    batch_size_ms2: 512
+    batch_size_rt_ccs: 1024
+    verbose: true
+    multiprocessing: true
+  transfer:
+    model_output_folder: /home/ash022/peptdeep/refined_models
+    epoch_ms2: 20
+    warmup_epoch_ms2: 10
+    batch_size_ms2: 512
+    lr_ms2: 0.0001
+    epoch_rt_ccs: 40
+    warmup_epoch_rt_ccs: 10
+    batch_size_rt_ccs: 1024
+    lr_rt_ccs: 0.0001
+    verbose: false
+    grid_nce_search: false
+    grid_nce_first: 15.0
+    grid_nce_last: 45.0
+    grid_nce_step: 3.0
+    grid_instrument:
+    - Lumos
+    psm_type: alphapept
+    psm_type_choices:
+    - alphapept
+    - pfind
+    - maxquant
+    - diann
+    - speclib_tsv
+    - msfragger_pepxml
+    - spectronaut_report
+    dda_psm_types:
+    - alphapept
+    - pfind
+    - maxquant
+    - msfragger_pepxml
+    psm_files: []
+    ms_file_type: alphapept_hdf
+    ms_file_type_choices:
+    - alphapept_hdf
+    - thermo_raw
+    - mgf
+    - mzml
+    ms_files: []
+    psm_num_to_train_ms2: 100000000
+    psm_num_per_mod_to_train_ms2: 50
+    psm_num_to_test_ms2: 0
+    psm_num_to_train_rt_ccs: 100000000
+    psm_num_per_mod_to_train_rt_ccs: 50
+    psm_num_to_test_rt_ccs: 0
+    top_n_mods_to_train: 10
+    psm_modification_mapping: {}
+library:
+  infile_type: fasta
+  infile_type_choices:
+  - fasta
+  - sequence_table
+  - peptide_table
+  - precursor_table
+  - all_other_psm_reader_types
+  infiles:
+  - /home/ash022/FastaDB/UP000005640_9606.fasta
+  fasta:
+    protease: trypsin
+    protease_choices:
+    - trypsin
+    - ([KR])
+    - trypsin_not_P
+    - ([KR](?=[^P]))
+    - lys-c
+    - K
+    - lys-n
+    - \w(?=K)
+    - chymotrypsin
+    - asp-n
+    - glu-c
+    max_miss_cleave: 2
+    add_contaminants: false
+  fix_mods:
+  - Carbamidomethyl@C
+  var_mods:
+  - Acetyl@Protein_N-term
+  - Oxidation@M
+  special_mods: []
+  special_mods_cannot_modify_pep_n_term: false
+  special_mods_cannot_modify_pep_c_term: false
+  labeling_channels: {}
+  min_var_mod_num: 0
+  max_var_mod_num: 2
+  min_special_mod_num: 0
+  max_special_mod_num: 1
+  min_precursor_charge: 2
+  max_precursor_charge: 4
+  min_peptide_len: 7
+  max_peptide_len: 35
+  min_precursor_mz: 200.0
+  max_precursor_mz: 2000.0
+  decoy: pseudo_reverse
+  decoy_choices:
+  - protein_reverse
+  - pseudo_reverse
+  - diann
+  - None
+  max_frag_charge: 2
+  frag_types:
+  - b
+  - y
+  rt_to_irt: false
+  generate_precursor_isotope: false
+  output_folder: /home/ash022/peptdeep/spec_libs
+  output_tsv:
+    enabled: false
+    min_fragment_mz: 200.0
+    max_fragment_mz: 2000.0
+    min_relative_intensity: 0.001
+    keep_higest_k_peaks: 12
+    translate_batch_size: 100000
+    translate_mod_to_unimod_id: false
