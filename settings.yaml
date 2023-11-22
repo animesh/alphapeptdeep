@@ -5,7 +5,7 @@ model:
   - b_modloss
   - y_modloss
   max_frag_charge: 2
-PEPTDEEP_HOME: /home/ash022/peptdeep
+PEPTDEEP_HOME: /cluster/projects/nn9036k/peptdeep
 local_model_zip_name: pretrained_models.zip
 model_url: https://github.com/MannLabs/alphapeptdeep/releases/download/pre-trained-models/pretrained_models.zip
 task_workflow:
@@ -87,7 +87,7 @@ model_mgr:
     verbose: true
     multiprocessing: true
   transfer:
-    model_output_folder: /home/ash022/peptdeep/refined_models
+    model_output_folder: /cluster/projects/nn9036k/peptdeep/refined_models
     epoch_ms2: 20
     warmup_epoch_ms2: 10
     batch_size_ms2: 512
@@ -142,7 +142,7 @@ library:
   - precursor_table
   - all_other_psm_reader_types
   infiles:
-  - /home/ash022/FastaDB/UP000005640_9606.fasta
+  - /cluster/projects/nn9036k/FastaDB/UP000005640_9606.fasta
   fasta:
     protease: trypsin
     protease_choices:
@@ -190,7 +190,7 @@ library:
   - y
   rt_to_irt: false
   generate_precursor_isotope: false
-  output_folder: /home/ash022/peptdeep/spec_libs
+  output_folder: /cluster/projects/nn9036k/peptdeep/spec_libs
   output_tsv:
     enabled: false
     min_fragment_mz: 200.0
