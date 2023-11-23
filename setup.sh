@@ -8,3 +8,5 @@ $HOME/.local/bin/peptdeep -h
 $HOME/.local/bin/peptdeep  export-settings settings.yaml
 mkdir /cluster/projects/nn9036k/peptdeep
 $HOME/.conda/envs/peptdeep/bin/peptdeep library settings.yaml
+
+how 

@@ -103,7 +103,7 @@ model_mgr:
     grid_nce_step: 3.0
     grid_instrument:
     - Lumos
-    psm_type: alphapept
+    psm_type: maxquant
     psm_type_choices:
     - alphapept
     - pfind
